@@ -21,7 +21,7 @@ class LoginApiController extends Controller
         $authenticate = $this->authService->authenticate($credentials);
 
         if ($authenticate === false) {
-            return response()->json(['errors' => 'Unauthorized'], 401);
+            return response()->json(['errors' => 'Account not found. Please check your login credentials or register for an account.'], 401);
         }
 
         return response()->json($authenticate, 200);
@@ -29,8 +29,7 @@ class LoginApiController extends Controller
 
     public function logout(Request $request)
     {
-        $user = $request->user();
-        $user->currentAccessToken()->delete();
+        $this->authService->logout();
         return response()->json(['messages' => 'Successfully logged out'], 200);
     }
 }

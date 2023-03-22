@@ -14,12 +14,11 @@ use App\Http\Controllers\Api\LoginApiController;
 |
 */
 
-Route::post('v1/login', [LoginApiController::class, 'login'])->name('login');
+Route::post('login', [LoginApiController::class, 'login'])->name('login');
 
 Route::group([
     'namespace' => 'Api',
     'middleware' => ['auth:sanctum'],
-    'prefix' => 'v1'
 ], function ($router) {
     Route::post('logout', [LoginApiController::class, 'logout'])->name('logout');
 });

@@ -23,6 +23,6 @@ class EloquentAuthRepository implements AuthRepository
 
     public function logout()
     {
-        Auth::logout();
+        Auth::user()->currentAccessToken()->delete();
     }
 }

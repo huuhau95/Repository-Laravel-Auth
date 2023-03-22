@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use Laravel\Sanctum\Sanctum;
-use App\Models\PersonalAccessToken;
 use App\Repositories\AuthRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Exceptions\CustomExceptionHandler;
@@ -30,14 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
-        Sanctum::authenticateAccessTokensUsing(function($accessToken, $isValid) {
-            if(empty($accessToken->last_used_at)) {
-                return $isValid;
-            }
-            else {
-                return $isValid || ($accessToken->last_used_at->gt(now()->subMinutes(6)));
-            }
-        });
+
     }
 }
