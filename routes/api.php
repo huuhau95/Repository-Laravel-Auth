@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LoginApiController;
+use App\Http\Controllers\Api\Account\Authenticate\AuthenticateApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +14,12 @@ use App\Http\Controllers\Api\LoginApiController;
 |
 */
 
-Route::post('login', [LoginApiController::class, 'login'])->name('login');
+Route::post('login', [AuthenticateApiController::class, 'login'])->name('login');
+Route::post('register', [AuthenticateApiController::class, 'register'])->name('register');
 
 Route::group([
     'namespace' => 'Api',
     'middleware' => ['auth:sanctum'],
 ], function ($router) {
-    Route::post('logout', [LoginApiController::class, 'logout'])->name('logout');
+    require base_path('routes/api/account.php');
 });
